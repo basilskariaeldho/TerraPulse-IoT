@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>TerraPulse IoT</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon">◉</span><div><b>TerraPulse</b><small>Worldwide IoT monitoring</small></div></div>
+    <span id="authStatus" class="muted">Not signed in</span>
+  </header>
+  <main>
+    <section id="authPanel" class="panel auth-panel">
+      <div>
+        <p class="eyebrow">YOUR DEVICES. YOUR DATA.</p>
+        <h1>Monitor your sensors<br>from anywhere.</h1>
+        <p class="muted">Connect ESP8266 / ESP-12E devices using ThingSpeak. Your device list is private to your account.</p>
+      </div>
+      <form id="authForm">
+        <h2 id="authTitle">Sign in</h2>
+        <label>Email<input id="email" type="email" autocomplete="email" required></label>
+        <label>Password<input id="password" type="password" minlength="6" autocomplete="current-password" required></label>
+        <button id="authSubmit" type="submit">Sign in</button>
+        <button id="toggleAuth" class="secondary" type="button">Create an account</button>
+        <p id="authMessage" class="message" role="status"></p>
+      </form>
+    </section>
+
+    <section id="appPanel" hidden>
+      <div class="welcome-row">
+        <div><p class="eyebrow">PERSONAL DASHBOARD</p><h1>Your sensor devices</h1><p class="muted">Only you can access the device details saved to this account.</p></div>
+        <button id="signOut" class="secondary compact">Sign out</button>
+      </div>
+      <section class="panel">
+        <h2>Add a ThingSpeak channel</h2>
+        <p class="muted small">Use a private channel's Read API Key. Never enter your Write API Key here.</p>
+        <form id="deviceForm" class="device-form">
+          <label>Device name<input id="deviceName" maxlength="50" placeholder="Greenhouse 1" required></label>
+          <label>ThingSpeak Channel ID<input id="channelId" inputmode="numeric" pattern="[0-9]+" placeholder="123456" required></label>
+          <label>Read API Key (leave blank for public channels)<input id="readKey" maxlength="64" placeholder="Read-only key"></label>
+          <button type="submit">Add device</button>
+        </form>
+        <p id="deviceMessage" class="message" role="status"></p>
+      </section>
+      <div id="devices" class="device-list"></div>
+      <p class="footer-note">Readings come from ThingSpeak. “Online” means a recent reading was received; it is not a direct connection test.</p>
+    </section>
+  </main>
+  <footer>TerraPulse IoT · Prototype starter · Keep your API keys private</footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

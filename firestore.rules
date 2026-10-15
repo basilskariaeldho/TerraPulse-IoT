@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Each user can access only their own device documents.
+    match /users/{userId}/devices/{deviceId} {
+      allow read, create, delete: if request.auth != null
+                                  && request.auth.uid == userId;
+      // This starter does not need client-side updates to saved device records.
+      allow update: if false;
+    }
+    // Deny client access to every other path unless explicitly added later.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
