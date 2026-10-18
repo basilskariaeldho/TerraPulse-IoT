@@ -1,16 +1,25 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Each user can access only their own device documents.
-    match /users/{userId}/devices/{deviceId} {
-      allow read, create, delete: if request.auth != null
-                                  && request.auth.uid == userId;
-      // This starter does not need client-side updates to saved device records.
-      allow update: if false;
-    }
-    // Deny client access to every other path unless explicitly added later.
-    match /{document=**} {
-      allow read, write: if false;
+    function signedIn() { return request.auth != null; }
+    function isOwner(userId) { return signedIn() && request.auth.uid == userId; }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create, update: if isOwner(userId)
+        && request.resource.data.keys().hasOnly(['displayName', 'email', 'createdAt']);
+      allow delete: if false;
+
+      match /devices/{deviceId} {
+        allow read: if isOwner(userId);
+        allow create, update: if isOwner(userId)
+          && request.resource.data.keys().hasOnly(['name', 'channelId', 'readApiKey', 'isPublic', 'createdAt'])
+          && request.resource.data.name is string
+          && request.resource.data.channelId is string
+          && request.resource.data.readApiKey is string
+          && request.resource.data.isPublic is bool;
+        allow delete: if isOwner(userId);
+      }
     }
   }
 }
