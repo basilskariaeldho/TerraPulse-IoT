@@ -10,7 +10,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 const char* WIFI_NAME = "AMMU";
 const char* WIFI_PASSWORD = "kl17z2143";
-const char* THINGSPEAK_WRITE_KEY = "YOUR_CHANNEL_WRITE_API_KEY";
+const char* THINGSPEAK_WRITE_KEY = "QWYZTXJMG8ZKLYN8";
 
 const unsigned long UPLOAD_MS = 20000; // free plan: keep >= 15000 ms
 unsigned long lastUpload = 0;
