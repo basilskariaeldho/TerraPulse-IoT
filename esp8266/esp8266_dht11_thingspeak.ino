@@ -9,8 +9,8 @@
 #include <ThingSpeak.h>
 #define DHTPIN D4
 #define DHTTYPE DHT11
-const char* WIFI_SSID = "AMMU";
-const char* WIFI_PASSWORD = "kl17z2143";
+const char* WIFI_SSID = "your_ssid";
+const char* WIFI_PASSWORD = "your_wifi_password";
 const char* THINGSPEAK_WRITE_KEY = "QWYZTXJMG8ZKLYN8";
 WiFiClient client;
 DHT dht(DHTPIN, DHTTYPE);
